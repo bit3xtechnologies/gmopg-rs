@@ -1,4 +1,5 @@
 use serde::{Deserialize, Serialize};
+
 use crate::enums::{JobCd, Method};
 
 #[derive(Debug, Serialize, Deserialize)]
@@ -15,24 +16,30 @@ pub struct SearchMemberResponse {
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct EntryTranResponse {
+    #[serde(rename = "AccessID")]
     pub access_id: String,
+    #[serde(rename = "AccessPass")]
     pub access_pass: String,
 }
 
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Default, Serialize, Deserialize)]
+#[serde(rename_all = "PascalCase")]
 pub struct ExecTranResponse {
+    #[serde(rename = "ACS")]
     pub acs: String,
+    #[serde(rename = "OrderID")]
     pub order_id: String,
     pub forward: String,
     pub method: Method,
     pub pay_times: String,
     pub approve: String,
+    #[serde(rename = "TranID")]
     pub tran_id: String,
     pub tran_date: String,
     pub check_string: String,
-    pub client_field1: String,
-    pub client_field2: String,
-    pub client_field3: String,
+    pub client_field1: Option<String>,
+    pub client_field2: Option<String>,
+    pub client_field3: Option<String>,
     pub acs_url: Option<String>,
 }
 

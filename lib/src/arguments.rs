@@ -1,5 +1,5 @@
-use serde::{Deserialize, Serialize};
 use crate::enums::{JobCd, Method, SeqMode};
+use serde::{Deserialize, Serialize};
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct MemberArgs {
@@ -22,19 +22,26 @@ pub struct OptionalSiteArgs {
     pub site_pass: Option<String>,
 }
 
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Default, Serialize, Deserialize)]
+#[serde(rename_all = "PascalCase")]
 pub struct EntryTranArgs {
+    #[serde(rename = "ShopID")]
     pub shop_id: String,
     pub shop_pass: String,
+    #[serde(rename = "OrderID")]
     pub order_id: String,
     pub job_cd: JobCd,
     pub amount: u32,
+    pub tax: Option<u32>,
 }
 
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Default, Serialize, Deserialize)]
+#[serde(rename_all = "PascalCase")]
 pub struct ExecTranArgs {
+    #[serde(rename = "AccessID")]
     pub access_id: String,
     pub access_pass: String,
+    #[serde(rename = "OrderID")]
     pub order_id: String,
     pub method: Option<Method>,
     pub pay_times: Option<u32>,
@@ -42,9 +49,12 @@ pub struct ExecTranArgs {
     pub expire: Option<String>,
     pub security_code: Option<String>,
     pub token: Option<String>,
+    #[serde(rename = "PIN")]
     pub pin: Option<String>,
+    #[serde(rename = "SiteID")]
     pub site_id: Option<String>,
     pub site_pass: Option<String>,
+    #[serde(rename = "MemberID")]
     pub member_id: Option<String>,
     pub seq_mode: Option<SeqMode>,
     pub card_seq: Option<u32>,
@@ -66,7 +76,7 @@ pub struct AlterTranArgs {
 }
 
 #[derive(Debug, Serialize, Deserialize)]
-pub struct  SearchTradeArgs {
+pub struct SearchTradeArgs {
     pub shop_id: String,
     pub shop_pass: String,
     pub order_id: String,
