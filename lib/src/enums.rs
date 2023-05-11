@@ -1,7 +1,8 @@
 use serde::{Deserialize, Serialize};
 use serde_repr::{Deserialize_repr, Serialize_repr};
 
-#[derive(Debug, Serialize, Deserialize, PartialEq, Eq)]
+#[derive(Debug, Serialize_repr, Deserialize_repr, PartialEq, Eq)]
+#[repr(u8)]
 pub enum SeqMode {
     Logic = 0,
     Physics = 1,

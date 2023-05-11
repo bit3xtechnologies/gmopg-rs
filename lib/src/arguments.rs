@@ -2,9 +2,12 @@ use crate::enums::{JobCd, Method, SeqMode};
 use serde::{Deserialize, Serialize};
 
 #[derive(Debug, Serialize, Deserialize)]
+#[serde(rename_all = "PascalCase")]
 pub struct MemberArgs {
+    #[serde(rename = "SiteID")]
     pub site_id: String,
     pub site_pass: String,
+    #[serde(rename = "MemberID")]
     pub member_id: String,
     pub member_name: Option<String>,
 }
@@ -14,6 +17,25 @@ pub struct DeleteMemberArgs {
     pub site_id: String,
     pub site_pass: String,
     pub member_id: String,
+}
+
+#[derive(Debug, Default, Serialize, Deserialize)]
+#[serde(rename_all = "PascalCase")]
+pub struct SaveCardArgs {
+    #[serde(rename = "SiteID")]
+    pub site_id: String,
+    pub site_pass: String,
+    #[serde(rename = "MemberID")]
+    pub member_id: String,
+    pub seq_mode: Option<SeqMode>,
+    pub card_seq: Option<u32>,
+    pub default_flag: Option<String>,
+    pub card_name: Option<String>,
+    pub card_no: Option<String>,
+    pub card_pass: Option<String>,
+    pub expire: Option<String>,
+    pub holder_name: Option<String>,
+    pub token: Option<String>,
 }
 
 #[derive(Debug, Serialize, Deserialize)]

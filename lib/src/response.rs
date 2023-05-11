@@ -4,14 +4,23 @@ use crate::enums::{JobCd, Method};
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct MemberIDResponse {
-    member_id: String,
+    #[serde(rename = "MemberID")]
+    pub member_id: String,
 }
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct SearchMemberResponse {
-    member_id: String,
-    member_name: Option<String>,
-    delete_flag: String,
+    pub member_id: String,
+    pub member_name: Option<String>,
+    pub delete_flag: String,
+}
+
+#[derive(Debug, Serialize, Deserialize)]
+#[serde(rename_all = "PascalCase")]
+pub struct SaveCardResponse {
+    pub card_seq: String,
+    pub card_no: String,
+    pub forward: String,
 }
 
 #[derive(Debug, Serialize, Deserialize)]

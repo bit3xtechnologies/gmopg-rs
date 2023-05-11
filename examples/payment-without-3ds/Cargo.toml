@@ -1,12 +1,12 @@
 [package]
-name = "gmopg-rs-example1"
+name = "gmopg-rs-example-payment-without-3ds"
 version = "0.1.0"
 edition = "2021"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-gmopg-rs = { path = "../lib" }
+gmopg-rs = { path = "../../lib" }
 
 tokio = { version = "1", features = ["full"] }
 tracing = { version = "0.1", features = ["log"] }
