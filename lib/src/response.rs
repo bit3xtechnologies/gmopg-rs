@@ -24,6 +24,24 @@ pub struct SaveCardResponse {
 }
 
 #[derive(Debug, Serialize, Deserialize)]
+#[serde(rename_all = "PascalCase")]
+pub struct DeleteCardResponse {
+    pub card_seq: String,
+}
+
+#[derive(Debug, Serialize, Deserialize)]
+#[serde(rename_all = "PascalCase")]
+pub struct SearchCardResponse {
+    pub card_seq: String,
+    pub default_flag: String,
+    pub card_name: String,
+    pub card_no: String,
+    pub expire: String,
+    pub holder_name: String,
+    pub delete_flag: String,
+}
+
+#[derive(Debug, Serialize, Deserialize)]
 pub struct EntryTranResponse {
     #[serde(rename = "AccessID")]
     pub access_id: String,

@@ -8,6 +8,38 @@ pub enum SeqMode {
     Physics = 1,
 }
 
+impl Default for SeqMode {
+    fn default() -> Self {
+        Self::Logic
+    }
+}
+
+#[derive(Debug, Serialize_repr, Deserialize_repr, PartialEq, Eq)]
+#[repr(u8)]
+pub enum ValidFlag {
+    All = 0,
+    ValidOnly = 1,
+}
+
+impl Default for ValidFlag {
+    fn default() -> Self {
+        Self::All
+    }
+}
+
+#[derive(Debug, Serialize_repr, Deserialize_repr, PartialEq, Eq)]
+#[repr(u8)]
+pub enum UseFloatingMask {
+    No = 0,
+    Use = 1,
+}
+
+impl Default for UseFloatingMask {
+    fn default() -> Self {
+        Self::No
+    }
+}
+
 #[derive(Debug, Serialize, Deserialize, PartialEq, Eq)]
 pub enum DefaultFlag {
     BillingObject = 0,

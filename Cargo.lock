@@ -414,6 +414,19 @@ dependencies = [
 ]
 
 [[package]]
+name = "gmopg-rs-example-search-card"
+version = "0.1.0"
+dependencies = [
+ "clap",
+ "gmopg-rs",
+ "tokio",
+ "tracing",
+ "tracing-subscriber",
+ "url",
+ "uuid",
+]
+
+[[package]]
 name = "h2"
 version = "0.3.18"
 source = "registry+https://github.com/rust-lang/crates.io-index"

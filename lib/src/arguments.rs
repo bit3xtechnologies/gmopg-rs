@@ -1,4 +1,4 @@
-use crate::enums::{JobCd, Method, SeqMode};
+use crate::enums::{JobCd, Method, SeqMode, ValidFlag, UseFloatingMask};
 use serde::{Deserialize, Serialize};
 
 #[derive(Debug, Serialize, Deserialize)]
@@ -13,9 +13,12 @@ pub struct MemberArgs {
 }
 
 #[derive(Debug, Serialize, Deserialize)]
+#[serde(rename_all = "PascalCase")]
 pub struct DeleteMemberArgs {
+    #[serde(rename = "SiteID")]
     pub site_id: String,
     pub site_pass: String,
+    #[serde(rename = "MemberID")]
     pub member_id: String,
 }
 
@@ -36,6 +39,32 @@ pub struct SaveCardArgs {
     pub expire: Option<String>,
     pub holder_name: Option<String>,
     pub token: Option<String>,
+}
+
+#[derive(Debug, Default, Serialize, Deserialize)]
+#[serde(rename_all = "PascalCase")]
+pub struct DeleteCardArgs {
+    #[serde(rename = "SiteID")]
+    pub site_id: String,
+    pub site_pass: String,
+    #[serde(rename = "MemberID")]
+    pub member_id: String,
+    pub seq_mode: Option<SeqMode>,
+    pub card_seq: u32,
+}
+
+#[derive(Debug, Default, Serialize, Deserialize)]
+#[serde(rename_all = "PascalCase")]
+pub struct SearchCardArgs {
+    #[serde(rename = "SiteID")]
+    pub site_id: String,
+    pub site_pass: String,
+    #[serde(rename = "MemberID")]
+    pub member_id: String,
+    pub seq_mode: Option<SeqMode>,
+    pub valid_flag: Option<ValidFlag>,
+    pub card_seq: Option<u32>,
+    pub use_floating_mask: Option<UseFloatingMask>,
 }
 
 #[derive(Debug, Serialize, Deserialize)]
@@ -87,6 +116,7 @@ pub struct ExecTranArgs {
 }
 
 #[derive(Debug, Serialize, Deserialize)]
+#[serde(rename_all = "PascalCase")]
 pub struct AlterTranArgs {
     pub shop_id: String,
     pub shop_pass: String,
@@ -98,6 +128,7 @@ pub struct AlterTranArgs {
 }
 
 #[derive(Debug, Serialize, Deserialize)]
+#[serde(rename_all = "PascalCase")]
 pub struct SearchTradeArgs {
     pub shop_id: String,
     pub shop_pass: String,
@@ -105,6 +136,7 @@ pub struct SearchTradeArgs {
 }
 
 #[derive(Debug, Serialize, Deserialize)]
+#[serde(rename_all = "PascalCase")]
 pub struct ChangeTranArgs {
     pub shop_id: String,
     pub shop_pass: String,

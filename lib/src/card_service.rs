@@ -6,9 +6,9 @@ use serde::de::DeserializeOwned;
 use serde::Serialize;
 use snafu::ResultExt;
 
-use crate::arguments::{DeleteMemberArgs, MemberArgs, SaveCardArgs};
+use crate::arguments::{DeleteMemberArgs, MemberArgs, SaveCardArgs, DeleteCardArgs, SearchCardArgs};
 use crate::error::{ReqwestClientSnafu, UrlDecodeSnafu};
-use crate::response::{MemberIDResponse, SaveCardResponse, SearchMemberResponse};
+use crate::response::{MemberIDResponse, SaveCardResponse, SearchMemberResponse, DeleteCardResponse, SearchCardResponse};
 use crate::Error;
 
 #[derive(Debug, Clone)]
@@ -43,6 +43,14 @@ impl CardService {
 
     pub async fn save_card(&self, args: SaveCardArgs) -> Result<SaveCardResponse, Error> {
         self.post("SaveCard", args).await
+    }
+
+    pub async fn delete_card(&self, args: DeleteCardArgs) -> Result<DeleteCardResponse, Error> {
+        self.post("DeleteCard", args).await
+    }
+
+    pub async fn search_card(&self, args: SearchCardArgs) -> Result<SearchCardResponse, Error> {
+        self.post("SearchCard", args).await
     }
 
     async fn post<T: Serialize, R: DeserializeOwned>(
