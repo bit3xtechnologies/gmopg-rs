@@ -1,4 +1,4 @@
-use crate::enums::{JobCd, Method, SeqMode, ValidFlag, UseFloatingMask};
+use crate::enums::{JobCd, Method, SeqMode, UseFloatingMask, ValidFlag};
 use serde::{Deserialize, Serialize};
 
 #[derive(Debug, Serialize, Deserialize)]

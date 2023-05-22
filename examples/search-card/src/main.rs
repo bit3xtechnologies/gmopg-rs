@@ -1,8 +1,5 @@
 use clap::Parser;
-use gmopg_rs::{
-    arguments::SearchCardArgs,
-    CardService,
-};
+use gmopg_rs::{arguments::SearchCardArgs, CardService};
 use uuid::Uuid;
 
 #[derive(Clone, Debug, Parser)]
@@ -46,7 +43,7 @@ async fn main() -> std::io::Result<()> {
     {
         Ok(res) => {
             tracing::info!("search_card response: {:?}", res);
-        },
+        }
         Err(err) => {
             // ErrInfo=E01240002 => The specified card does not exist.
             // ErrInfo=E01390002 => The member with the specified site ID and member ID does not exist.

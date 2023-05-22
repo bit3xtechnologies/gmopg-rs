@@ -9,6 +9,7 @@ use reqwest::StatusCode;
 use serde::{de::DeserializeOwned, Serialize};
 use snafu::ResultExt;
 
+#[derive(Debug, Clone)]
 pub struct CreditService {
     client: reqwest::Client,
     base_url: String,

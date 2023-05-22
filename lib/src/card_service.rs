@@ -6,9 +6,14 @@ use serde::de::DeserializeOwned;
 use serde::Serialize;
 use snafu::ResultExt;
 
-use crate::arguments::{DeleteMemberArgs, MemberArgs, SaveCardArgs, DeleteCardArgs, SearchCardArgs};
+use crate::arguments::{
+    DeleteCardArgs, DeleteMemberArgs, MemberArgs, SaveCardArgs, SearchCardArgs,
+};
 use crate::error::{ReqwestClientSnafu, UrlDecodeSnafu};
-use crate::response::{MemberIDResponse, SaveCardResponse, SearchMemberResponse, DeleteCardResponse, SearchCardResponse};
+use crate::response::{
+    DeleteCardResponse, MemberIDResponse, SaveCardResponse, SearchCardResponse,
+    SearchMemberResponse,
+};
 use crate::Error;
 
 #[derive(Debug, Clone)]
