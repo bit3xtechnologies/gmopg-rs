@@ -1,3 +1,5 @@
+use std::fmt::Debug;
+
 use crate::arguments::{
     AlterTranArgs, ChangeTranArgs, EntryTranArgs, ExecTranArgs, SearchTradeArgs,
 };
@@ -24,35 +26,35 @@ impl CreditService {
     }
 
     pub async fn entry_tran(&self, args: EntryTranArgs) -> Result<EntryTranResponse, Error> {
-        self.post("EntryTran.idPass", args).await
+        self.post("EntryTran", args).await
     }
 
     pub async fn exec_tran(&self, args: ExecTranArgs) -> Result<ExecTranResponse, Error> {
-        self.post("ExecTran.idPass", args).await
+        self.post("ExecTran", args).await
     }
 
     pub async fn alter_tran(&self, args: AlterTranArgs) -> Result<AlterTranResponse, Error> {
-        self.post("AlterTran.idPass", args).await
+        self.post("AlterTran", args).await
     }
 
     pub async fn search_trade(&self, args: SearchTradeArgs) -> Result<SearchTradeResponse, Error> {
-        self.post("SearchTrade.idPass", args).await
+        self.post("SearchTrade", args).await
     }
 
     pub async fn change_tran(&self, args: ChangeTranArgs) -> Result<ChangeTranResponse, Error> {
-        self.post("ChangeTran.idPass", args).await
+        self.post("ChangeTran", args).await
     }
 
     // pub async fn search_card_detail(&self, args: SearchCardDetailArgs) -> Result<SearchCardDetailResult, reqwest::Error> {
     //     self.post("SearchCardDetail.idPass", args).await
     // }
 
-    async fn post<T: Serialize, R: DeserializeOwned>(
+    async fn post<T: Serialize + Debug, R: DeserializeOwned>(
         &self,
         action: &str,
         args: T,
     ) -> Result<R, Error> {
-        let url = format!("{}/payment/{}", self.base_url, action);
+        let url = format!("{}/payment/{}.idPass", self.base_url, action);
         let res = self
             .client
             .post(&url)
@@ -70,7 +72,10 @@ impl CreditService {
         let text = res.text().await.context(ReqwestClientSnafu)?;
         if text.starts_with("ErrCode") {
             // error happened
-            tracing::error!("gmopg error: {}", text.to_string());
+            tracing::debug!(
+                "gmopg error: {text}, calling API [{url}] with args [{:?}]",
+                args
+            );
             return Err(Error::Gmopg {
                 text: text.to_string(),
             });

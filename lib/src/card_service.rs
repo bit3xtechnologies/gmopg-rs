@@ -7,7 +7,7 @@ use serde::Serialize;
 use snafu::ResultExt;
 
 use crate::arguments::{
-    DeleteCardArgs, DeleteMemberArgs, MemberArgs, SaveCardArgs, SearchCardArgs,
+    DeleteCardArgs, DeleteMemberArgs, MemberArgs, SaveCardArgs, SearchCardArgs, TradedCardArgs,
 };
 use crate::error::{ReqwestClientSnafu, UrlDecodeSnafu};
 use crate::response::{
@@ -58,7 +58,11 @@ impl CardService {
         self.post("SearchCard", args).await
     }
 
-    async fn post<T: Serialize, R: DeserializeOwned>(
+    pub async fn traded_card(&self, args: TradedCardArgs) -> Result<SaveCardResponse, Error> {
+        self.post("TradedCard", args).await
+    }
+
+    async fn post<T: Serialize + Debug, R: DeserializeOwned>(
         &self,
         action: &str,
         args: T,
@@ -81,7 +85,10 @@ impl CardService {
         let text = res.text().await.context(ReqwestClientSnafu)?;
         if text.starts_with("ErrCode") {
             // error happened
-            tracing::error!("gmopg error: {}", text.to_string());
+            tracing::debug!(
+                "gmopg error: {text}, calling API [{url}] with args [{:?}]",
+                args
+            );
             return Err(Error::Gmopg {
                 text: text.to_string(),
             });

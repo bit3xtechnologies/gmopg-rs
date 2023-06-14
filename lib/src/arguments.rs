@@ -67,6 +67,27 @@ pub struct SearchCardArgs {
     pub use_floating_mask: Option<UseFloatingMask>,
 }
 
+#[derive(Debug, Default, Serialize, Deserialize)]
+#[serde(rename_all = "PascalCase")]
+pub struct TradedCardArgs {
+    #[serde(rename = "ShopID")]
+    pub shop_id: String,
+    pub shop_pass: String,
+    #[serde(rename = "OrderID")]
+    pub order_id: String,
+    #[serde(rename = "SiteID")]
+    pub site_id: String,
+    pub site_pass: String,
+    #[serde(rename = "MemberID")]
+    pub member_id: String,
+    pub seq_mode: Option<SeqMode>,
+    pub card_seq: Option<u32>,
+    pub default_flag: Option<String>,
+    pub card_name: Option<String>,
+    pub card_pass: Option<String>,
+    pub holder_name: Option<String>,
+}
+
 #[derive(Debug, Serialize, Deserialize)]
 pub struct OptionalSiteArgs {
     pub site_id: Option<String>,
