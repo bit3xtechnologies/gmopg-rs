@@ -4,6 +4,7 @@ members = [
     "lib",
     "examples/payment-without-3ds",
     "examples/save-card",
+    "examples/payment-with-saved-card",
     "examples/save-traded-card",
     "examples/search-card",
 ]

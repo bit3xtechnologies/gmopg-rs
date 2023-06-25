@@ -378,6 +378,20 @@ dependencies = [
 ]
 
 [[package]]
+name = "gmopg-rs-example-payment-with-saved-card"
+version = "0.1.0"
+dependencies = [
+ "chrono",
+ "clap",
+ "gmopg-rs",
+ "tokio",
+ "tracing",
+ "tracing-subscriber",
+ "url",
+ "uuid",
+]
+
+[[package]]
 name = "gmopg-rs-example-payment-without-3ds"
 version = "0.1.0"
 dependencies = [

@@ -40,14 +40,24 @@ async fn main() -> std::io::Result<()> {
             site_id: config.site_id.to_string(),
             site_pass: config.site_pass.to_string(),
             member_id: member_id.to_string(),
-            member_name: Some("Organization Name".to_string()),
+            member_name: Some("Test Organization Name".to_string()),
         })
         .await
     {
         Ok(res) => res.member_id,
         Err(err) => {
-            tracing::error!("save_member error: {err}");
-            panic!("save_member error!")
+            if let gmopg_rs::Error::Gmopg { text } = err {
+                if text.contains("E01390010") {
+                    // ErrInfo=E01390010 => A member with the specified site ID and member ID already exists.
+                    member_id.to_string()
+                } else {
+                    tracing::error!("save_member gmopg error: {text}");
+                    panic!("save_member gmopg error!")
+                }
+            } else {
+                tracing::error!("save_member error: {err}");
+                panic!("save_member error!")
+            }
         }
     };
 
@@ -57,10 +67,9 @@ async fn main() -> std::io::Result<()> {
             site_id: config.site_id,
             site_pass: config.site_pass,
             member_id,
-            card_name: Some("Test Visa Card".to_string()),
             card_no: Some("4111111111111111".to_string()),
             expire: Some("2810".to_string()),
-            holder_name: Some("Test Holder Name".to_string()),
+            security_code: Some("123".to_string()),
             ..Default::default()
         })
         .await
