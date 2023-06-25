@@ -38,6 +38,7 @@ pub struct SaveCardArgs {
     pub card_pass: Option<String>,
     pub expire: Option<String>,
     pub holder_name: Option<String>,
+    pub security_code: Option<String>,
     pub token: Option<String>,
 }
 
